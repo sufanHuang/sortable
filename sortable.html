@@ -1,0 +1,88 @@
+ <!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Sortable</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <style>
+       
+        h1{
+            font-size: 2em;
+            color:green;
+            text-align: center
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: auto auto auto auto auto;
+             grid-column-gap: 1px;
+             grid-row-gap: 20px;
+        }
+        .button-container{
+            width: 100%
+        }
+
+        button {
+            margin: 0 auto;
+            display: block !important;
+        }
+        
+        li {
+            list-style: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Reorder images in grid using the mouse.</h1>
+            <ul id="sortable" class=grid-container>
+                    <li class="ui-state-default" data-number='3'><image src="image3.jpg"  width="220" height="220"></image></li>
+                    <li class="ui-state-default" data-number='8'><image src="image8.jpg" width="220" height="220"></image></li>
+                    <li class="ui-state-default" data-number='1'><image src="image1.jpg" width="220" height="220"></image></li>
+                    <li class="ui-state-default" data-number='4'><image src="image4.jpg" width="220" height="220"></image></li>
+                    <li class="ui-state-default" data-number='2'><image src="image2.jpg" width="220" height="220"></image></li>
+                    <li class="ui-state-default" data-number='9'><image src="image9.jpg" width="220" height="220"></image></li>
+                    <li class="ui-state-default" data-number='10'><image src="image10.jpg" width="220" height="220"></image></li>
+                    <li class="ui-state-default" data-number='5'><image src="image5.jpg" width="220" height="220"></image></li>
+                    <li class="ui-state-default" data-number='7'><image src="image7.jpg" width="220" height="220"></image></li>
+                    <li class="ui-state-default" data-number='6'><image src="image6.jpg" width="220" height="220"></image></li>
+            </ul>
+            <div class=button-container>
+                <button type="button" class="btn btn-success btn-lg">Check Anser!</button>
+            </div>
+            
+    <script>
+            $( function() {
+              $( "#sortable" ).sortable();
+              $( "#sortable" ).disableSelection();
+            } );
+
+            $('button').click(() => {
+                let sortedItems = $('#sortable li') // grabe list items(image) and become an array
+
+                let index = 0 //index of the array above
+                let isCorrect = false
+                while(index < sortedItems.length) {
+                    let data = sortedItems.eq(index).data('number')
+                    // eq and data are jQuery methods but no $ is needed?
+                    if((index + 1) != parseInt(data)) { //parseInt method change string to interger
+                        break
+                    }
+                    index++
+                }
+                // parseInt is a jQuery method?
+                if(index == sortedItems.length) {
+                    isCorrect = true
+                }
+
+                if(!isCorrect) { 
+                    alert('Wrong! Try again.')
+                } else {
+                    alert('Good job!')
+                }
+            })
+    </script>
+</body>
+</html> 
